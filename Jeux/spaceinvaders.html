@@ -22,6 +22,8 @@
     var invaderY = 50; // Position en Y des envahisseurs
     var invaderImage = new Image();
     invaderImage.src= "/invader/image.png"
+    var invaderSpeed = 3;
+    var invaderDirection = 1;
 
     function init() {
       //Création du terrain de jeu et positionnement du joueur
@@ -64,7 +66,18 @@
       }
     }
     function updateInvaders() {
+      var reachedEdge = False;
+      for (var i = 0; i < invaders.length; i++) {
+      invaders[i].x += invaderSpeed * invaderDirection;
 
+      if (invaders[i].x>canvas.width - invaders[i].width || invaders[i].x<0){
+        reachedEdge = True;
+      }
+      }
+      if (reachedEdge==True){
+        invaderDirection*= -1;
+        invaderY += 50;
+      }
     }
 
     document.addEventListener("keydown", function (event) {
