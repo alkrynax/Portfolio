@@ -19,6 +19,9 @@
     var context;
     var player;
     var projectiles = [];
+    var invaderY = 50; // Position en Y des envahisseurs
+    var invaderImage = new Image();
+    invaderImage.src= "/invader/image.png"
 
     function init() {
       //Création du terrain de jeu et positionnement du joueur
@@ -46,9 +49,8 @@
       }
     }
     function drawInvaders() {
-      context.fillStyle = "#00D42A";
       for (var i = 0; i < invaders.length; i++) {
-      context.fillRect(invaders[i].x, invaders[i].y, invaders[i].width, invaders[i].height);
+      context.drawImage(invaderImage, invaders[i].x, invaderY, invaders[i].width, invaders[i].height);
       }
     }
     function updateProjectiles() {
