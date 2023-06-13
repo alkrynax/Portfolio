@@ -18,6 +18,7 @@
     var canvas;
     var context;
     var player;
+    var projectiles = [];
 
     function init() {
       //Création du terrain de jeu et positionnement du joueur
@@ -34,16 +35,39 @@
 
     function drawPlayer() {
       //Création du joueur sous la forme basique d'un rectangle
-      context.fillStyle = "#fff";
+      context.fillStyle = "#FFFFFF";
       context.fillRect(player.x, player.y, player.width, player.height);
     }
+
+    function drawProjectiles() {
+      context.fillStyle = "#EB0707";
+
+      for (var i = 0; i < projectiles.length; i++) {
+        context.fillRect(projectiles[i].x, projectiles[i].y, 2, 10);
+      }
+    }
+    function drawInvaders() {
+      context.fillStyle = "#00D42A";
+    }
+
+    function updateProjectiles() {
+      for (var i = 0; i < projectiles.length; i++) {
+        projectiles[i].y -= 2;
+
+        if (projectiles[i].y < 0) {
+          projectiles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
     document.addEventListener("keydown", function (event) {
       //Définition de la surface de déplacement du joueur et de la vitesse
       var playerSpeed = 5;
       var playerMinX = 30;
       var playerMaxX = canvas.width - player.width - 30;
       var playerMinY = 30;
-      var playerMaxY = canvas.height/2 - player.height - 30;
+      var playerMaxY = canvas.height / 2 - player.height - 30;
 
       document.addEventListener("keydown", function (event) {
         //Movement à l'aide des flèches avec déplacement dans les quatre directions
@@ -60,7 +84,7 @@
         }
 
         if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-          event.preventDefault(); 
+          event.preventDefault();
           // Empêche le défilement de la page lors de l'utilisation des flèches haut/bas
         }
 
@@ -78,10 +102,20 @@
       });
 
     });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === " ") {
+        projectiles.push({
+          x: player.x + player.width / 2,
+          y: player.y
+        });
+      }
+    });
 
     function gameLoop() {
       context.clearRect(0, 0, canvas.width, canvas.height);
       drawPlayer();
+      drawProjectiles();
+      updateProjectiles();
 
     }
   </script>
