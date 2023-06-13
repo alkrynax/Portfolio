@@ -30,6 +30,7 @@
 </head>
 
 <body>
+<div id="wp-custom-header" class="wp-custom-header"><img src="https://t4.ftcdn.net/jpg/05/54/47/79/360_F_554477926_yKEcMeDTD1oLqKQCjvpryeT5zHLMunNh.jpg" width="2000" height="1200" alt=""></div>
 </body>
 
 </html>
