@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <style>
     #gameCanvas {
@@ -8,15 +9,18 @@
     }
   </style>
 </head>
+
 <body>
   <canvas id="gameCanvas" width="480" height="320"></canvas>
 
   <script>
+    //Définition des variables
     var canvas;
     var context;
     var player;
 
     function init() {
+      //Création du terrain de jeu et positionnement du joueur
       canvas = document.getElementById("gameCanvas");
       context = canvas.getContext("2d");
       player = {
@@ -27,17 +31,61 @@
       };
 
     }
+
     function drawPlayer() {
+      //Création du joueur sous la forme basique d'un rectangle
       context.fillStyle = "#fff";
       context.fillRect(player.x, player.y, player.width, player.height);
     }
+    document.addEventListener("keydown", function (event) {
+      //Définition de la surface de déplacement du joueur et de la vitesse
+      var playerSpeed = 5;
+      var playerMinX = 30;
+      var playerMaxX = canvas.width - player.width - 30;
+      var playerMinY = 30;
+      var playerMaxY = canvas.height/2 - player.height - 30;
+
+      document.addEventListener("keydown", function (event) {
+        //Movement à l'aide des flèches avec déplacement dans les quatre directions
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          player.x -= playerSpeed;
+          if (player.x < playerMinX) {
+            player.x = playerMinX;
+          }
+        } else if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          player.x += playerSpeed;
+          if (player.x > playerMaxX) {
+            player.x = playerMaxX;
+          }
+        }
+
+        if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+          event.preventDefault(); 
+          // Empêche le défilement de la page lors de l'utilisation des flèches haut/bas
+        }
+
+        if (event.key === "ArrowUp") {
+          player.y -= playerSpeed;
+          if (player.y < playerMinY) {
+            player.y = playerMinY;
+          }
+        } else if (event.key === "ArrowDown") {
+          player.y += playerSpeed;
+          if (player.y > playerMaxY) {
+            player.y = playerMaxY;
+          }
+        }
+      });
+
+    });
 
     function gameLoop() {
       context.clearRect(0, 0, canvas.width, canvas.height);
       drawPlayer();
 
     }
-
   </script>
+
 </body>
+
 </html>
