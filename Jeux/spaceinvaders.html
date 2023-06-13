@@ -27,6 +27,16 @@
       };
 
     }
+    function drawPlayer() {
+      context.fillStyle = "#fff";
+      context.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function gameLoop() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawPlayer();
+
+    }
 
   </script>
 </body>
