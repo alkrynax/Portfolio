@@ -24,6 +24,7 @@
     invaderImage.src = "/invader/image.png"
     var invaderSpeed = 3;
     var invaderDirection = 1;
+    var score = 0;
 
     function init() {
       //Création du terrain de jeu et positionnement du joueur
@@ -97,9 +98,22 @@
             j--;
             projectiles.splice(i, 1);
             i++;
+            score+= 50;
           }
         }
       }
+    }
+
+    function score(){
+      context.font = "16px Arial";
+      context.fillStyle = "#01D918";
+      context.fillText("Score"+ score, 8, 20);
+    }
+
+    function GameOver(){
+      context.font = "30px Arial";
+      context.fillStyle = "#01D918";
+      context.fillText("Game Over",canvas.height/2-80, canvas.width/2-15)
     }
 
     document.addEventListener("keydown", function (event) {
@@ -158,6 +172,8 @@
       drawInvaders();
       drawProjectiles();
       updateProjectiles();
+      checkCollision();
+      score();
 
     }
     setInterval(gameLoop, 16);
