@@ -21,7 +21,7 @@
     var projectiles = [];
     var invaderY = 50; // Position en Y des envahisseurs
     var invaderImage = new Image();
-    invaderImage.src= "/invader/image.png"
+    invaderImage.src = "/invader/image.png"
     var invaderSpeed = 3;
     var invaderDirection = 1;
 
@@ -43,6 +43,7 @@
       context.fillStyle = "#FFFFFF";
       context.fillRect(player.x, player.y, player.width, player.height);
     }
+
     function drawProjectiles() {
       context.fillStyle = "#EB0707";
 
@@ -50,11 +51,13 @@
         context.fillRect(projectiles[i].x, projectiles[i].y, 2, 10);
       }
     }
+
     function drawInvaders() {
       for (var i = 0; i < invaders.length; i++) {
-      context.drawImage(invaderImage, invaders[i].x, invaderY, invaders[i].width, invaders[i].height);
+        context.drawImage(invaderImage, invaders[i].x, invaderY, invaders[i].width, invaders[i].height);
       }
     }
+
     function updateProjectiles() {
       for (var i = 0; i < projectiles.length; i++) {
         projectiles[i].y -= 2;
@@ -65,18 +68,37 @@
         }
       }
     }
+
     function updateInvaders() {
       var reachedEdge = False;
       for (var i = 0; i < invaders.length; i++) {
-      invaders[i].x += invaderSpeed * invaderDirection;
+        invaders[i].x += invaderSpeed * invaderDirection;
 
-      if (invaders[i].x>canvas.width - invaders[i].width || invaders[i].x<0){
-        reachedEdge = True;
+        if (invaders[i].x > canvas.width - invaders[i].width || invaders[i].x < 0) {
+          reachedEdge = True;
+        }
       }
-      }
-      if (reachedEdge==True){
-        invaderDirection*= -1;
+      if (reachedEdge == True) {
+        invaderDirection *= -1;
         invaderY += 50;
+      }
+    }
+
+    function checkCollision() {
+      for (var i = 0; i < projectiles.length; i++) {
+        for (var j = 0; j < invaders.length; j++) {
+          if (
+            projectiles[i].x < invaders[j].x + invaders[j].width &&
+            projectiles[i].x + 2 > invaders[j].x &&
+            projectiles[i].y < invaders[j].y + invaders[j].height &&
+            projectiles[i].y + 10 > invaders[j].y
+          ) {
+            invaders.splice(j, 1);
+            j--;
+            projectiles.splice(i, 1);
+            i++;
+          }
+        }
       }
     }
 
