@@ -14,44 +14,100 @@
   <canvas id="gameCanvas" width="480" height="320"></canvas>
 
   <script>
-    //Définition des variables
+    // Définition des variables
     var canvas;
     var context;
+    var playerImage;
     var player;
     var projectiles = [];
+    var invaders = [];
     var invaderY = 50; // Position en Y des envahisseurs
     var invaderImage = new Image();
-    invaderImage.src = "/invader/image.png"
+    invaderImage.src = "image.png";
     var invaderSpeed = 3;
     var invaderDirection = 1;
+    var maxInvaders = 10;
     var score = 0;
 
+    var keysPressed = {}; // Stocke les touches actuellement enfoncées
+
     function init() {
-      //Création du terrain de jeu et positionnement du joueur
+      // Création du terrain de jeu et positionnement du joueur
       canvas = document.getElementById("gameCanvas");
       context = canvas.getContext("2d");
+      playerImage = new Image();
+      playerImage.src = "image2.png";
       player = {
-        x: canvas.width / 2,
+        x: canvas.width / 2 - 10,
         y: canvas.height - 30,
         width: 20,
         height: 20
       };
-
+      invaders.push({
+        x: 50,
+        width: 20,
+        height: 20
+      });
     }
 
-    function draw() {
-      // Efface le contenu précédent du canevas
+    init(); // Appel de la fonction init() une seule fois au début
+
+    function gameLoop() {
       context.clearRect(0, 0, canvas.width, canvas.height);
+      updatePlayer();
+      drawPlayer();
 
-      // Dessine les éléments du jeu
+      if (invaders.length === 0) {
+        drawVictory(); // Afficher le message de victoire si tous les ennemis sont battus
+        return;
+      }
 
-      requestAnimationFrame(draw);
+      drawInvaders();
+      drawProjectiles();
+      updateInvaders();
+      updateProjectiles();
+      checkCollision();
+      drawScore();
     }
+
+    setInterval(gameLoop, 16);
 
     function drawPlayer() {
-      //Création du joueur sous la forme basique d'un rectangle
-      context.fillStyle = "#FFFFFF";
-      context.fillRect(player.x, player.y, player.width, player.height);
+      // Affichage de l'image du joueur
+      context.drawImage(playerImage, player.x, player.y, player.width, player.height);
+    }
+
+    function updatePlayer() {
+      var playerSpeed = 5;
+      var playerMinX = 30;
+      var playerMaxX = canvas.width - player.width - 30;
+      var playerMinY = 30;
+      var playerMaxY = canvas.height / 2 - player.height - 30;
+
+      // Vérifier les touches actuellement enfoncées et mettre à jour la position du joueur en conséquence
+      if (keysPressed["ArrowLeft"]) {
+        player.x -= playerSpeed;
+        if (player.x < playerMinX) {
+          player.x = playerMinX;
+        }
+      } else if (keysPressed["ArrowRight"]) {
+        player.x += playerSpeed;
+        if (player.x > playerMaxX) {
+          player.x = playerMaxX;
+        }
+      }
+
+      if (keysPressed["ArrowUp"]) {
+        player.y -= playerSpeed;
+        if (player.y < playerMinY) {
+          player.y = playerMinY;
+        }
+      } else if (keysPressed["ArrowDown"]) {
+        player.y += playerSpeed;
+        if (player.y > playerMaxY) {
+          player.y = playerMaxY;
+        }
+      }
     }
 
     function drawProjectiles() {
@@ -64,7 +120,7 @@
 
     function drawInvaders() {
       for (var i = 0; i < invaders.length; i++) {
-        context.drawImage(invaderImage, invaders[i].x, invaderY, invaders[i].width, invaders[i].height);
+        context.drawImage(invaderImage, invaders[i].x, invaders[i].y, invaders[i].width, invaders[i].height);
       }
     }
 
@@ -80,17 +136,29 @@
     }
 
     function updateInvaders() {
-      var reachedEdge = False;
+      var reachedEdge = false;
+
       for (var i = 0; i < invaders.length; i++) {
         invaders[i].x += invaderSpeed * invaderDirection;
 
         if (invaders[i].x > canvas.width - invaders[i].width || invaders[i].x < 0) {
-          reachedEdge = True;
+          reachedEdge = true;
         }
       }
-      if (reachedEdge == True) {
+
+      if (reachedEdge) {
         invaderDirection *= -1;
         invaderY += 50;
+      }
+
+      // Ajouter de nouveaux envahisseurs si le nombre est inférieur à la limite
+      if (invaders.length < maxInvaders) {
+        invaders.push({
+          x: Math.random() * (canvas.width - 20),
+          y: invaderY,
+          width: 20,
+          height: 20
+        });
       }
     }
 
@@ -104,69 +172,37 @@
             projectiles[i].y + 10 > invaders[j].y
           ) {
             invaders.splice(j, 1);
-            j--;
             projectiles.splice(i, 1);
-            i++;
+            i--;
             score += 50;
+            break;
           }
         }
       }
     }
 
-    function score() {
+    function drawScore() {
       context.font = "16px Arial";
       context.fillStyle = "#01D918";
-      context.fillText("Score" + score, 8, 20);
+      context.fillText("Score: " + score, 8, 20);
     }
 
-    function GameOver() {
+    function drawVictory() {
       context.font = "30px Arial";
       context.fillStyle = "#01D918";
-      context.fillText("Game Over", canvas.height / 2 - 80, canvas.width / 2 - 15)
+      context.fillText("Victory!", canvas.width / 2 - 80, canvas.height / 2 - 15);
     }
 
-    document.addEventListener("keydown", function (event) {
-      //Définition de la surface de déplacement du joueur et de la vitesse
-      var playerSpeed = 5;
-      var playerMinX = 30;
-      var playerMaxX = canvas.width - player.width - 30;
-      var playerMinY = 30;
-      var playerMaxY = canvas.height / 2 - player.height - 30;
-
-      document.addEventListener("keydown", function (event) {
-        //Movement à l'aide des flèches avec déplacement dans les quatre directions
-        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-          player.x -= playerSpeed;
-          if (player.x < playerMinX) {
-            player.x = playerMinX;
-          }
-        } else if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-          player.x += playerSpeed;
-          if (player.x > playerMaxX) {
-            player.x = playerMaxX;
-          }
-        }
-
-        if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-          event.preventDefault();
-          // Empêche le défilement de la page lors de l'utilisation des flèches haut/bas
-        }
-
-        if (event.key === "ArrowUp") {
-          player.y -= playerSpeed;
-          if (player.y < playerMinY) {
-            player.y = playerMinY;
-          }
-        } else if (event.key === "ArrowDown") {
-          player.y += playerSpeed;
-          if (player.y > playerMaxY) {
-            player.y = playerMaxY;
-          }
-        }
-      });
-
+    // Stocker les touches actuellement enfoncées
+    document.addEventListener("keydown", function(event) {
+      keysPressed[event.key] = true;
     });
-    document.addEventListener("keydown", function (event) {
+
+    document.addEventListener("keyup", function(event) {
+      keysPressed[event.key] = false;
+    });
+
+    document.addEventListener("keydown", function(event) {
       if (event.key === " ") {
         projectiles.push({
           x: player.x + player.width / 2,
@@ -174,20 +210,7 @@
         });
       }
     });
-
-    function gameLoop() {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      drawPlayer();
-      drawInvaders();
-      drawProjectiles();
-      updateProjectiles();
-      checkCollision();
-      score();
-
-    }
-    setInterval(gameLoop, 16);
   </script>
-
 </body>
 
 </html>
