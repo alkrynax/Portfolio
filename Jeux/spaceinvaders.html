@@ -39,6 +39,15 @@
 
     }
 
+    function draw() {
+      // Efface le contenu précédent du canevas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Dessine les éléments du jeu
+
+      requestAnimationFrame(draw);
+    }
+
     function drawPlayer() {
       //Création du joueur sous la forme basique d'un rectangle
       context.fillStyle = "#FFFFFF";
@@ -98,22 +107,22 @@
             j--;
             projectiles.splice(i, 1);
             i++;
-            score+= 50;
+            score += 50;
           }
         }
       }
     }
 
-    function score(){
+    function score() {
       context.font = "16px Arial";
       context.fillStyle = "#01D918";
-      context.fillText("Score"+ score, 8, 20);
+      context.fillText("Score" + score, 8, 20);
     }
 
-    function GameOver(){
+    function GameOver() {
       context.font = "30px Arial";
       context.fillStyle = "#01D918";
-      context.fillText("Game Over",canvas.height/2-80, canvas.width/2-15)
+      context.fillText("Game Over", canvas.height / 2 - 80, canvas.width / 2 - 15)
     }
 
     document.addEventListener("keydown", function (event) {
