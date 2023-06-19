@@ -1,134 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-        }
+    <!-- Google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-        h1 {
-            margin: 0;
-        }
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        section {
-            padding: 20px;
-        }
-
-        #presentation img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer ul {
-            display: flex;
-            justify-content: center;
-        }
-
-        footer li {
-            margin: 0 10px;
-        }
-
-        a {
-            color: #fff;
-            text-decoration: none;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-              <li class="active"><a href="home.html">Accueil</a></li>
-              <li><a href="jeux/spaceinvaders.html">Space Invaders</a></li>
-              <li><a href="cv.html">CV</a></li>
-            </ul>
-        </nav>
-        
-    </header>
-    <img src="image.jpg" alt="Photo de profil" width="240" height="240">
-    <h1>Alexandre Deperdu Castel</h1>
-    
-    <section id="presentation">
-        <h2>Présentation personnelle</h2>
-        <p>Étudiant très intéressé par le monde de l'informatique et des nouvelles technologies. Toujours désireux
-            d'apprendre, d'assumer plus de responsabilités et de grandir sur le plan professionnel. </p>
-    </section>
+    <main class="resume-contents">
+        <section class="left-section">
+            <div class="left-section-contents">
+                <div class="profile">
+                    <img class="profile-image" src="img/profile.jpg" alt="Profile image">
+                    <p class="name">Alexandre Deperdu Castel</p>
+                    <p class="profession">Etudiant informatique</p>
+                </div>
+                <div class="contact-info">
+                    <p class="left-title">Contact Info</p>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> 06 11 26 48 67
+                        </li>
+                        <li><i class="fa fa-envelope"></i>adeperdu@gmail.com
+                        </li>
+                        <li><i class="fa fa-globe"></i>lorem.ipsum.web
+                        </li>
+                        <li><i class="fa fa-github"></i>https://github.com/alkrynax
+                        </li>
+                        <li><i class="fa fa-map-marker"></i>4 rue de la colle, 98000 MONACO
+                        </li>
+                    </ul>
+                </div>
+                <div class="skills">
+                    <p class="left-title">Skills</p>
+                    <ul>
+                        <li>
+                            <p>Python</p>
+                        </li>
+                        <li>
+                            <p>C++, Java</p>
+                        </li>
+                        <li>
+                            <p>JavaScript, PHP (symfony)</p>
+                        </li>
+                        <li>
+                            <p>HTML5 et CSS3</p>
+                        </li>
+                        <li>
+                            <p>SQL, MySql</p>
+                        </li>
+                        <li>
+                            <p>Git et GitHub</p>
+                        </li>
+                        <li>
+                            <p>Linux, Bash/Shell</p>
+                        </li>
+                        <li>
+                            <p>Résolution de problèmes</p>
+                        </li>
+                        <li>
+                            <p>Autonome et impliqué</p>
+                        </li>
+                        <li>
+                            <p>Bilingue en Anglais</p>
+                        </li>
+                        <li>
+                            <p> Grande adaptibilité</p>
+                        </li>
+                        <li>
+                            <p>Appliqué dans le travail d'équipe</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-    <section id="experiences">
-        <h2>Expériences Professionnelles</h2>
-        <ul>
-            <li><h3>Gestionnaire Base de données</h3>
-                <h4>CEDEMO MONACO| Juillet 2017(Stage)</h4>
-                <p>Traitement de divers documents et saisi des informations dans une base de
-                    données<br>
-                    Apprentissage de la structure hiérarchique d'une entreprise<br>
-                    Communication avec les divers pôles de l'entreprise pour l'initiation aux
-                    échanges dans un cadre professionnel.</p>
-            </li>
-            <li><h3>Chargé de projet</h3>
-                <h4>SEPM MONACO| Juin-Juillet 2022(Stage)</h4>
-                <p>-Installation de postes de travail dans tous les locaux ainsi que le service
-                    après installation pour tous les problèmes<br>
-                    Gestion de la mise en circulation d'une application mobile<br>
-                    Apprentissage sur l'infrastructure réseau et machine au sien d'une entreprise</p>
-            </li>
-            <li><h3>Chargé de projet</h3>
-                <h4>Global Signa France| Janvier-Février(Stage)</h4>
-                <p>-Développement d'un intranet ayant tout un fonctionnement de pointeuse et
-                    de gestions d'informations d'employés via du PHP, javascript et html<br>
-                    -Chargé de la maintenance et de la mise en cloud de serveurs<br>
-                    -Apprentissage sur l'utilisations d'outils comme Wordpress et éditeurs de
-                    sites</p>
-            </li>
-        </ul>
-    </section>
-    <section id="formations">
-        <h2>Projets récents</h2>
-        <ul>
-            <li><h3>EPSI Toulouse</h3>
-                <h4>Bachelor DevOps, promo 2024 | Master IA, promo 2026</h4>
-                <p>-Formation dans le cadre du contact client dans le
-                    monde de l'informatique<br>
-                    -Formation en Full Stack et en infrastructure réseau<br>
-                    -Formation en cyber sécurité</p></li>
-            <li><h3>Lycée Privé Michelet Nice</h3>
-                <h4>Seconde - Terminal Obtention bac, promo 2021</h4>
-                <p>-Obtention du baccalauréat en spécialité NSI en première et Maths Physique au bac avec mention Bien/p></li>
-        </ul>
-    </section>
+        <section class="right-section">
+            <div class="right-section-contents">
+                <section class="about gap">
+                    <div class="right-title">A propos de moi</div>
+                    <p class="about-me-contents">
+                        En tant qu'étudiant passionné par l'informatique et les nouvelles technologies, je suis
+                        constamment avide d'apprendre et de prendre davantage de responsabilités pour évoluer
+                        professionnellement. Je cherche à me tenir à jour avec les dernières avancées technologiques, à
+                        acquérir de nouvelles compétences techniques et à me spécialiser dans un domaine précis. Mon
+                        objectif est de grandir sur le plan professionnel, en apportant des idées novatrices et en
+                        assumant des rôles à responsabilités plus élevées, tout en contribuant à l'évolution de
+                        l'industrie technologique.
+                    </p>
+                </section>
 
-    <footer>
-        <ul>
-            <li><a href="https://www.linkedin.com/in/alexandre-deperdu-castel/">LinkedIn</a></li>
-            <li><a href="https://github.com/alkrynax">GitHub</a></li>
-            <li><a href="adeperdu@gmail.com">Email</a></li>
-        </ul>
-    </footer>
+                <section class="experience gap">
+                    <div class="right-title">Experience</div>
+                    <div class="experience-contents">
+                        <div class="exp-left">
+                            <p class="exp-company-name">Global Signa France</p>
+                            <p class="exp-time-period">Janvier-Février 2023</p>
+                        </div>
+                        <div class="exp-right">
+                            <p class="exp-position">Stagiaire et chargé de projet</p>
+                            <p class="exp-desc">
+                                Développement d'un intranet ayant tout un fonctionnement de pointeuse et
+                                de gestions d'informations d'employés via du PHP, javascript et html<br>
+                                Chargé de la maintenance et de la mise en cloud de serveurs<br>
+                                Apprentissage sur l'utilisations d'outils comme Wordpress et éditeurs de
+                                sites
+                            </p>
+                        </div>
+                    </div>
+                    <div class="experience-contents">
+                        <div class="exp-left">
+                            <p class="exp-company-name">SEPM Monaco</p>
+                            <p class="exp-time-period">Juin-Juillet 2022</p>
+                        </div>
+                        <div class="exp-right">
+                            <p class="exp-position"> Stagiaire et chargé de projet</p>
+                            <p class="exp-desc">
+                                Installation de postes de travail dans tous les locaux ainsi que le service
+                                après installation pour tous les problèmes<br>
+                                Gestion de la mise en circulation d'une application mobile<br>
+                                Apprentissage sur l'infrastructure réseau et machine au sien d'une entreprise
+                            </p>
+                        </div>
+                    </div>
+                    <div class="experience-contents">
+                        <div class="exp-left">
+                            <p class="exp-company-name">CEDEMO Monaco</p>
+                            <p class="exp-time-period">Juillet 2017</p>
+                        </div>
+                        <div class="exp-right">
+                            <p class="exp-position">Stagiaire en gestion de base de données</p>
+                            <p class="exp-desc">
+                                Traitement de divers documents et saisi des informations dans une base de
+                                données<br>
+                                Apprentissage de la structure hiérarchique d'une entreprise<br>
+                                Communication avec les divers pôles de l'entreprise pour l'initiation aux
+                                échanges dans un cadre professionnel.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="education gap">
+                    <div class="right-title">Education</div>
+                    <div class="education-contents">
+                        <div class="education-left">
+                            <p class="education-school-name">EPSI Toulouse</p>
+                            <p class="educationp-time-period">Promo 2024</p>
+                        </div>
+                        <div class="education-right">
+                            <p class="education-subject">Bachelor DevOps</p>
+                            <p class="education-desc">
+                                Formation dans le cadre du contact client dans le
+                                monde de l'informatique<br>
+                                Formation en Full Stack et en infrastructure réseau<br>
+                                Formation en cyber sécurité
+                            </p>
+                        </div>
+                    </div>
+            </div>
+            <div class="education-contents">
+                <div class="education-left">
+                    <p class="education-school-name">Lycée Privé Michelet</p>
+                    <p class="educationp-time-period">2019-2021</p>
+                </div>
+                <div class="education-right">
+                    <p class="education-subject">Science</p>
+                    <p class="education-desc">
+                        -Obtention du baccalauréat en spécialité NSI en première et Maths Physique au bac avec mention
+                        Bien
+                    </p>
+                </div>
+            </div>
+        </section>
+        </div>
+        </section>
+    </main>
 </body>
 
 </html>
