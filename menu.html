@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+
+<head>
+    <title>Mon Portfolio</title>
+    <style>
+        body {
+
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            font-family: 'montserrat', sans-serif;
+        }
+
+        h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 48px;
+            color: white;
+            margin-top: 200px;
+        }
+
+        h2 {
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .first {
+            background-image: url('img/back.jpg');
+        }
+
+        .container {
+
+            background-color: #34495E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .column {
+            flex-basis: 50%;
+            background-color: #34495E;
+            padding: 20px;
+            color: white;
+        }
+
+        .column img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .column p {
+            text-align: left;
+
+        }
+
+        .navbar {
+            background-color: #222;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<header width="50px">
+    <div class="navbar">
+        <a href="menu.html">Accueil</a>
+        <a href="Space-Invaders.html">Space Invaders</a>
+        <a href="snake.html">Snake</a>
+        <a href="cv.html">CV</a>
+
+
+    </div>
+</header>
+
+<body>
+    <div class="first">
+        <h1>Mon portfolio</h1>
+        <h2 background-color="blue">Étudiant en informatique</h2>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <img src="img/profile.jpg" alt="Ma photo">
+        </div>
+        <div class="column">
+            <h3>A propos de moi</h3>
+            <h4>Alexandre Deperdu Castel</h4>
+            <p>Je suis un jeune étudiant en informatique passionné par ce monde immense mais aussi par tout ce qui
+                relève du voyage, de la découverte du monde. J'ai comme passion la création d'accessoires pour du
+                costume et de la création 3D plus globalement.</p>
+        </div>
+    </div>
+
+    <section class="Liens" id="sec-6960">
+        <div class="slider">
+            <div class="slide">
+                <h2 class="title">Snake</h2>
+                <p class="description">Le snake est un jeu contenant un serpent qui doit manger des pommes et le but est
+                    d'arriver à une taille de serpent immense</p>
+                <a href="Snake.html" class="btn">Découvrir</a>
+            </div>
+            <div class="slide">
+                <h2 class="title">Space invaders</h2>
+                <p class="description">Un jeu rétro comportant des aliens à tuer avec des tirs de missile !</p>
+                <a href="Space-Invaders.html" class="btn">Découvrir</a>
+            </div>
+            <div class="slide">
+                <h2 class="title">Cosplay</h2>
+                <p class="description">Création de costumes reprenant des références venant de tout divertissement
+                    consistant à
+                    ramener la fiction dans la réalité</p>
+                <a href="https://www.instagram.com/alearacosplay/" class="btn" target="_blank">Découvrir</a>
+            </div>
+            <div class="slide">
+                <h2 class="title">Photographie</h2>
+                <p class="description">Etant grand amateur de voyage, je souhaite partager mes voyages à travers de la
+                    photographie sous des angles de rêves.</p>
+                <a href="https://www.instagram.com/_alkr.y/" class="btn" target="_blank">Découvrir</a>
+            </div>
+        </div>
+        <style>
+            body {
+                background-color: #AED6F1;
+            }
+
+            .slider {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .slide {
+                width: 300px;
+                padding: 20px;
+                margin: 10px;
+                border-radius: 5px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .slide:nth-child(1) {
+                background-image: url("img/snake.png");
+            }
+
+            .slide:nth-child(2) {
+                background-image: url("img/spaceinvaders.jpg");
+            }
+
+            .slide:nth-child(3) {
+                background-image: url("img/cosplay.png");
+            }
+
+            .slide:nth-child(4) {
+                background-image: url("img/pic.png");
+            }
+
+            .title {
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+            }
+
+            .description {
+                margin-top: 10px;
+                font-size: 15px;
+                color: rgb(255, 255, 255);
+            }
+
+            .btn {
+                display: inline-block;
+                margin-top: 10px;
+                padding: 8px 16px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+        </style>
+
+    </section>
+</body>
+
+</html>

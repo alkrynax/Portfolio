@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snake Game</title>
+    <style>
+        #snakeCanvas {
+            border: 1px solid black;
+        }
+        body {
+            margin-top: 50px;
+        }
+
+        .navbar {
+            background-color: #222;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<header width="50px">
+    <div class="navbar">
+        <a href="menu.html">Accueil</a>
+        <a href="Space-Invaders.html">Space Invaders</a>
+        <a href="snake.html">Snake</a>
+        <a href="cv.html">CV</a>
+    </div>
+</header>
+
+
+<body>
+    <div id="startMenu">
+        <h1>Snake Game</h1>
+        <button onclick="startGame()">Start</button>
+    </div>
+    <canvas id="snakeCanvas"></canvas>
+
+    <script>
+        // Sélection de l'élément canvas
+        const canvas = document.getElementById("snakeCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Définition de la taille du canvas
+        const canvasSize = 400;
+        canvas.width = canvasSize;
+        canvas.height = canvasSize;
+
+        // Définition de la taille des blocs
+        const blockSize = 20;
+        const blockCount = canvasSize / blockSize;
+
+        // Initialisation des variables du jeu
+        let snake, direction, food, speed, gameRunning;
+
+        // Gestion du menu de départ
+        function startGame() {
+            // Masquer le menu de départ
+            const startMenu = document.getElementById("startMenu");
+            startMenu.style.display = "none";
+
+            // Initialiser les variables du jeu
+            snake = [{
+                x: blockCount / 2,
+                y: blockCount / 2
+            }];
+            direction = "right";
+            food = generateFoodPosition();
+            speed = 100;
+            gameRunning = true;
+
+            // Lancer le jeu
+            update();
+        }
+
+        // Gestion de la mise à jour du jeu
+        function update() {
+            clearCanvas();
+            moveSnake();
+            drawSnake();
+            drawFood();
+            checkCollision();
+
+            if (gameRunning) {
+                // Mettre à jour le jeu toutes les X millisecondes (vitesse)
+                setTimeout(update, speed);
+            }
+        }
+
+        // Effacer le contenu du canvas
+        function clearCanvas() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+        }
+        // Gérer les événements de pression des touches du clavier
+        document.addEventListener("keydown", event => {
+            const keyPressed = event.key;
+
+            switch (keyPressed) {
+                case "ArrowUp":
+                    if (direction !== "down") {
+                        direction = "up";
+                    }
+                    break;
+                case "ArrowDown":
+                    if (direction !== "up") {
+                        direction = "down";
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (direction !== "right") {
+                        direction = "left";
+                    }
+                    break;
+                case "ArrowRight":
+                    if (direction !== "left") {
+                        direction = "right";
+                    }
+                    break;
+            }
+        });
+
+
+        // Déplacer le serpent
+        function moveSnake() {
+            // Obtenir la tête du serpent
+            const head = {
+                x: snake[0].x,
+                y: snake[0].y
+            };
+
+            // Mettre à jour la position de la tête en fonction de la direction
+            switch (direction) {
+                case "up":
+                    head.y--;
+                    break;
+                case "down":
+                    head.y++;
+                    break;
+                case "left":
+                    head.x--;
+                    break;
+                case "right":
+                    head.x++;
+                    break;
+            }
+
+            // Ajouter la nouvelle tête au début du serpent
+            snake.unshift(head);
+
+            // Supprimer la dernière partie du serpent
+            if (!isFoodEaten()) {
+                snake.pop();
+            }
+        }
+
+        // Dessiner le serpent
+        function drawSnake() {
+            ctx.fillStyle = "green";
+
+            // Dessiner chaque partie du serpent
+            snake.forEach(block => {
+                ctx.fillRect(block.x * blockSize, block.y * blockSize, blockSize, blockSize);
+            });
+        }
+
+        // Générer une position aléatoire pour la nourriture
+        function generateFoodPosition() {
+            return {
+                x: Math.floor(Math.random() * blockCount),
+                y: Math.floor(Math.random() * blockCount)
+            };
+        }
+
+        // Dessiner la nourriture
+        function drawFood() {
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x * blockSize, food.y * blockSize, blockSize, blockSize);
+        }
+
+        // Vérifier si le serpent a mangé la nourriture
+        function isFoodEaten() {
+            const head = snake[0];
+
+            if (head.x === food.x && head.y === food.y) {
+                food = generateFoodPosition();
+                increaseSpeed(); // Augmenter la vitesse lorsque la nourriture est mangée
+                return true;
+            }
+
+            return false;
+        }
+
+        // Vérifier les collisions avec les murs ou avec le corps du serpent
+        function checkCollision() {
+            const head = snake[0];
+
+            if (
+                head.x < 0 ||
+                head.x >= blockCount ||
+                head.y < 0 ||
+                head.y >= blockCount ||
+                isSnakeCollision()
+            ) {
+                // Arrêter le jeu en cas de collision
+                gameRunning = false;
+                showRestartMenu();
+            }
+        }
+
+        // Vérifier les collisions avec le corps du serpent
+        function isSnakeCollision() {
+            const head = snake[0];
+
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Augmenter la vitesse du jeu
+        function increaseSpeed() {
+            speed -= 5; // Ajustez la vitesse selon vos préférences
+        }
+
+        // Afficher le menu de redémarrage
+        function showRestartMenu() {
+            const restartMenu = document.createElement("div");
+            restartMenu.id = "restartMenu";
+            restartMenu.innerHTML = `
+        <h1>Game Over!</h1>
+        <button onclick="restartGame()">Restart</button>
+      `;
+            document.body.appendChild(restartMenu);
+        }
+
+        // Redémarrer le jeu
+        function restartGame() {
+            // Supprimer le menu de redémarrage
+            const restartMenu = document.getElementById("restartMenu");
+            restartMenu.remove();
+
+            // Afficher à nouveau le menu de départ
+            const startMenu = document.getElementById("startMenu");
+            startMenu.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
