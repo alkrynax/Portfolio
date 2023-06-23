@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
     href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-
 
 <head>
     <title>Snake Game</title>
@@ -18,8 +15,8 @@
         }
 
         .navbar {
-            background-color: #222;
             font-family: 'Raleway', sans-serif;
+            background-color: #222;
             overflow: hidden;
             position: fixed;
             top: 0;
@@ -87,11 +84,11 @@
                 x: blockCount / 2,
                 y: blockCount / 2
             }];
+            score = 0;
             direction = "right";
             food = generateFoodPosition();
             speed = 100;
             gameRunning = true;
-            let score = 0;
 
 
             // Lancer le jeu
@@ -101,15 +98,17 @@
         // Gestion de la mise à jour du jeu
         function update() {
             clearCanvas();
+            drawScore();
             moveSnake();
             drawSnake();
             drawFood();
             checkCollision();
-            drawScore();
+
 
             if (gameRunning) {
                 // Mettre à jour le jeu toutes les X millisecondes (vitesse)
                 setTimeout(update, speed);
+
             }
         }
 
@@ -203,25 +202,26 @@
             ctx.fillStyle = "red";
             ctx.fillRect(food.x * blockSize, food.y * blockSize, blockSize, blockSize);
         }
+        // Dessiner le score
+        function drawScore() {
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 10, 30);
+        }
+
 
         // Vérifier si le serpent a mangé la nourriture
         function isFoodEaten() {
             const head = snake[0];
 
             if (head.x === food.x && head.y === food.y) {
+                score += 50;
                 food = generateFoodPosition();
                 increaseSpeed(); // Augmenter la vitesse lorsque la nourriture est mangée
-                score += 50;
                 return true;
             }
 
             return false;
-        }
-
-        function drawScore() {
-            ctx.fillStyle = "white";
-            ctx.font = "20px Arial";
-            ctx.fillText("Score: " + score, 10, 30);
         }
 
 
