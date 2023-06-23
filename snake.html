@@ -7,6 +7,7 @@
         #snakeCanvas {
             border: 1px solid black;
         }
+
         body {
             margin-top: 50px;
         }
@@ -84,6 +85,8 @@
             food = generateFoodPosition();
             speed = 100;
             gameRunning = true;
+            let score = 0;
+
 
             // Lancer le jeu
             update();
@@ -96,6 +99,7 @@
             drawSnake();
             drawFood();
             checkCollision();
+            drawScore();
 
             if (gameRunning) {
                 // Mettre à jour le jeu toutes les X millisecondes (vitesse)
@@ -201,11 +205,19 @@
             if (head.x === food.x && head.y === food.y) {
                 food = generateFoodPosition();
                 increaseSpeed(); // Augmenter la vitesse lorsque la nourriture est mangée
+                score += 50;
                 return true;
             }
 
             return false;
         }
+
+        function drawScore() {
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 10, 30);
+        }
+
 
         // Vérifier les collisions avec les murs ou avec le corps du serpent
         function checkCollision() {
